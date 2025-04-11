@@ -65,16 +65,11 @@ public class BookController(BookService service, ViewGenerator view) : IBookCont
   {
     var title = _view.GetValidInput("Enter book's title: ");
     var author = _view.GetValidInput("Enter author's name: ");
+    var section = _view.GetValidInput("Enter section (e.g. Fiction, Science): ");
+    var shelf = _view.GetValidInput("Enter shelf (e.g. A1, A2, B12): ").ToUpper();
 
-    var result = _service.AddBook(title, author);
-    if (result == true)
-    {
-      Console.WriteLine($"Book was added successfully!");
-    }
-    else
-    {
-      Console.WriteLine($"Couldn't to add a new book.");
-    }
+    var result = _service.AddBook(title, author, section, shelf);
+    Console.WriteLine(result ? "Book successfully added!" : "Failed to add book.");
     Console.WriteLine("Press any key to continue...");
     Console.ReadKey();
   }
